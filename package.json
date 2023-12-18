@@ -1,5 +1,5 @@
 {
-  "name": "gulp-amphtml-validator",
+  "name": "@mhauck.wdrmg/gulp-amphtml-validator",
   "version": "1.0.6",
   "description": "Gulp plugin for the official AMP HTML validator (www.ampproject.org). Modified to use local validator js file.",
   "keywords": [
@@ -14,7 +14,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ampproject/amphtml/tree/main/validator/js/gulpjs"
+    "url": "git+https://github.com/ampproject/amphtml.git#main"
   },
   "dependencies": {
     "amphtml-validator": "1.0.35",
@@ -29,5 +29,13 @@
   "scripts": {
     "test": " ./node_modules/mocha/bin/mocha",
     "run-sample": " ./run_sample.sh"
+  },
+  "bugs": {
+    "url": "https://github.com/ampproject/amphtml/issues"
+  },
+  "homepage": "https://github.com/ampproject/amphtml/tree/main#readme",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
   }
 }
