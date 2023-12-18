@@ -34,12 +34,24 @@ module.exports.validate = function(validator) {
           'Streams not supported!'));
     }
     if (file.isBuffer()) {
-      
-      const validatorInstance = validator.newInstance(fs.readFileSync(`${__dirname}/validator_wasm.js`).toString())
-      const inputString = file.contents.toString();
-      
-      file.ampValidationResult = validatorInstance.validateString(inputString);
-
+      validator.getInstance(`${__dirname}/validator_wasm.js`)
+          .then(function(validatorInstance) {
+            const inputString = file.contents.toString();
+            file.ampValidationResult =
+                validatorInstance.validateString(inputString);
+            return callback(null, file);
+          })
+          .catch(function(err) {
+          // This happens if the validator download failed. We don't fail the
+          // build, but map the exception to an validation error instead. This
+          // makes it possible to configure via failAfterError whether this
+          // should fail the build or not.
+            console.log(colors.red(err.message));
+            file.ampValidationResult = {
+              status: STATUS_UNKNOWN,
+            };
+            return callback(null, file);
+          });
     }
   }
   return through.obj(runValidation);
