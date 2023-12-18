@@ -1,6 +1,6 @@
 'use strict';
 
-import {readFileSync} from "fs";
+const fs = require('fs')
 
 const amphtmlValidator = require('amphtml-validator');
 const colors = require('kleur/colors');
@@ -34,7 +34,7 @@ module.exports.validate = function(validator) {
           'Streams not supported!'));
     }
     if (file.isBuffer()) {
-      validator.newInstance(readFileSync(`${__dirname}/validator_wasm.js`).toString())
+      validator.newInstance(fs.readFileSync(`${__dirname}/validator_wasm.js`).toString())
           .then(function(validatorInstance) {
             const inputString = file.contents.toString();
             file.ampValidationResult =
