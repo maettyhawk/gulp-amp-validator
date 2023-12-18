@@ -67,7 +67,7 @@ module.exports.format = function(logger) {
 
   const results = [];
   if (!logger) {
-    logger = console.log;
+    logger = console;
   }
 
   function collectResults(file, encoding, callback) {
